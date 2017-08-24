@@ -59,18 +59,6 @@ AspectPatch(-, BOOL, application:(UIApplication *)application didFinishLaunching
 
     }
 
-//    if ([[UIApplication sharedApplication]currentUserNotificationSettings].types!=UIUserNotificationTypeNone) {
-////        [self addLocalNotification];
-//    }else{
-//        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound  categories:nil]];
-//    }
-
-//    if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]) {
-//        UILocalNotification *localNotifi = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-//        [self changeLocalNotifi:localNotifi];
-//    }
-
-
     return XAMessageForward(application:application didFinishLaunchingWithOptions:launchOptions);
 }
 
@@ -110,19 +98,6 @@ AspectPatch(-, void,application:(UIApplication *)application didReceiveRemoteNot
     }
 
     [GeTuiSdk setBadge:1]; //同步本地角标值到服务器
-//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1]; //APP 显示角标需开发者调用系统方法进行设置
-//
-//    if (application.applicationState == UIApplicationStateInactive) {
-//
-//    } else if (application.applicationState == UIApplicationStateBackground){
-////        
-////        [GeTuiSdk setBadge:1]; //同步本地角标值到服务器
-////        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1]; //APP 显示角标需开发者调用系统方法进行设置
-//    } else if (application.applicationState == UIApplicationStateActive){
-//        [self addLocalNotification:(userInfo[@"aps"])[@"category"]];
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"alert" message:@"message" delegate:self cancelButtonTitle:@"yes" otherButtonTitles:@"didReceiveRemoteNotification", nil];
-//        [alert show];
-//    }
 
     if (application.applicationState == UIApplicationStateActive) {
         // 转换成一个本地通知，显示到通知栏，你也可以直接显示出一个alertView，只是那样稍显aggressive：）
@@ -263,13 +238,6 @@ AspectPatch(-, void, applicationDidBecomeActive:(UIApplication *)application) {
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         [self addLocalNotification:payloadMsg];
     }
-
-//        if ([[UIApplication sharedApplication]currentUserNotificationSettings].types!=UIUserNotificationTypeNone) {
-//            [self addLocalNotification:payloadMsg];
-//
-//        }else{
-//            [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound  categories:nil]];
-//        }
 }
 
 
@@ -315,20 +283,6 @@ AspectPatch(-, void, applicationDidBecomeActive:(UIApplication *)application) {
 
 #pragma mark - 添加本地推送 -
 - (void)addLocalNotification:(NSString *)body {
-//    //定义本地通知对象
-//    UILocalNotification *notification=[[UILocalNotification alloc]init];
-//    //设置调用时间
-//    notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];//立即触发
-//    //设置通知属性
-////    notification.alertBody=@"HELLO，我是本地通知哦!"; //通知主体
-//    notification.alertBody= body;
-//    notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
-//    notification.alertAction=@"打开应用"; //待机界面的滑动动作提示
-//    notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
-//    //调用通知
-//    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-//
-
     // 1.创建通知
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
 
@@ -359,7 +313,9 @@ AspectPatch(-, void, applicationDidBecomeActive:(UIApplication *)application) {
 //    // 跳转到指定控制器
 //    rootController.selectedIndex = [selectIndex intValue];
 }
+
 @end
+
 #undef AtAspectOfClass
 #undef AtAspect
 

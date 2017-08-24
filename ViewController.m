@@ -42,6 +42,7 @@
     CPShareMenuView *shareV = [[CPShareMenuView alloc] init];
 
     [shareV addShareItems:self.view style:CPShareViewStylePopping frame:CGRectMake(0, 100, kScreenWidth, 120) selectShareItem:^(NSInteger index) {
+        //根据index区分分享介质，分享内容可从服务器请求后再分享
         [CPShareHelper shareUrlDataWithPlatform:CPSocialPlatformType_WechatSession withShareUrl:@"http://baidu.com" withTitle:@"极限挑战" withDescr:@".............ing" withThumImage:[UIImage imageNamed:@"user_img"] Target:self withCompletion:^(id result, NSError *error) {
             NSLog(@"%@--%@",result,error);
 
